@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="main">
+		
+	<!-- 글쓰기, 답글쓰기 -->
+	<insert id="insertMainArticle" parameterType="model.main.MainDto">
+		insert into main(menu,data) values(#{menu},#{data})
+	</insert>
+	
+	<!-- content , 글수정,답글쓰기에 활용-->	
+	<select id="getMainArticle" parameterType="String" resultType="model.main.MainDto">
+		select * from main where menu=#{menu}
+	</select>
+
+	<!-- update -->
+	<update id="updateMainArticle" parameterType="model.main.MainDto">
+		update main set data=#{data} where menu=#{menu}
+	</update>
+	
+</mapper>

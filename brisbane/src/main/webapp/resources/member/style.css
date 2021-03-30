@@ -1,0 +1,68 @@
+   BODY{
+   background-color:#ece7fa;
+   }
+   #h:link,#h:visited,#h:active {
+      text-decoration : none;
+      color : black;
+      font-weight:bold;
+   }
+   #h:hover {
+      text-decoration : underline;
+      color : gray;
+   }
+   a:link,a:visited,a:active {
+      text-decoration : none;
+      color : black;
+      
+   }
+   a:hover {
+      text-decoration : underline;
+      color : gray;
+   }
+   TABLE, TD,TR, TH{
+          font-size:11pt;
+   }
+   p{
+      font-size:11pt;
+   }
+	#logo{
+		height:50px;margin:100px;
+	}
+	#page{
+		width:750px; padding: 50px; margin:auto; border-radius:30px; background-color:white;
+	}
+	#a{
+		width:700px; height:30px;margin:20px; background-color:#bfbce9;
+	}
+	#a{border-radius:30px;}
+	
+	@font-face {
+    font-family: myfont-ttf;
+    src: url("../img/nanumgothic.ttf");
+	}
+	@font-face {
+    font-family: myfont-eot;
+    src: url("../img/nanumgothic.eot");
+	}
+	.main{
+    font-size : 9pt;
+   font-family:NanumGothic, ³ª´®°íµñ, myfont-ttf, myfont-eot, sans-serif, Serif;
+   padding:20px;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	

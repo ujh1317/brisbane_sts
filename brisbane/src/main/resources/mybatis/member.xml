@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="member">
+	<!-- 중복체크, 회원정보수정 ,삭제-->
+	<select id="selectOne" parameterType="String" resultType="model.member.MemberDto">
+		select * from member
+		where id=#{id}
+	</select>
+	
+	<!-- 회원가입 -->
+	<insert id="insertMember" parameterType="model.member.MemberDto">
+		insert into member values(#{id},#{pw},#{name},#{jumin1},#{jumin2},#{email},#{zipcode},#{addr},NOW())
+	</insert>
+	
+	<!-- 로그인 , map사용-->
+	<select id="selectLogin" parameterType="String" resultType="model.member.MemberDto">
+		select * from member where id=#{id}
+	</select>
+	
+	<!-- DB회원 정보 수정 -->
+	<update id="memberUpdate" parameterType="model.member.MemberDto">
+		update member 
+		set pw=#{pw},name=#{name}, email=#{email}, zipcode=#{zipcode},addr=#{addr} where id=#{id}
+	</update>
+	<!-- 회원탈퇴 -->
+	<delete id="memberDelete" parameterType="String">
+		delete from member where id=#{id}
+	</delete>
+</mapper>

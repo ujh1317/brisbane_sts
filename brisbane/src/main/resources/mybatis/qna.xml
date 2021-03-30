@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="qna">
+	
+	<!-- 글개수 getQnaCount -->
+	<select id="getQnaCount" resultType="int">
+		select count(*) from qna;
+	</select>
+	<!-- 리스트 - 전체 -->
+	<select id="getQnaList" parameterType="java.util.HashMap" resultType="model.qna.QnaDto">
+		select * from qna order by ref desc,re_step asc limit #{start},#{cnt}
+	</select>
+	<!-- 리스트 - 카테고리 분류 -->
+	<select id="getsortedQnaList" parameterType="java.util.HashMap" resultType="model.qna.QnaDto">
+		select * from qna where category=#{list_category} order by ref asc,re_step asc limit #{start},#{cnt}
+	</select>
+	
+	<!-- 글번호 얻기 -->
+	<select id="getQnaMaxNum" resultType="Integer">
+		select max(num) from qna
+	</select>
+	<!-- 답글 끼워넣을 위치 확보 -->
+	<update id="updateQnaStep" parameterType="model.qna.QnaDto">
+		update qna set re_step=re_step+1
+		where ref=#{ref} and re_step>#{re_step}
+	</update>	
+	<!-- 글쓰기, 답글쓰기 -->
+	<insert id="insertQnaArticle" parameterType="model.qna.QnaDto">
+		insert into qna(writer,category,subject,regdate,modifydate,ref,re_step,re_level,content,ip,bounds) 
+		values(#{writer},#{category},#{subject},NOW(),NOW(),#{ref},#{re_step},#{re_level},#{content},#{ip},#{bounds})
+	</insert>
+	<!-- content , 글수정,답글쓰기에 활용-->	
+	<select id="getQnaArticle" parameterType="int" resultType="model.qna.QnaDto">
+		select * from qna where num=#{num}
+	</select>
+	 
+	<!-- 조회수 증가 -->
+
+	<update id="updateQnaReadcount" parameterType="int">
+		update qna set readcount=readcount+1
+		where num=#{num}
+	</update>
+
+	<!-- update -->
+	<update id="updateQnaArticle" parameterType="model.qna.QnaDto">
+		update qna set subject=#{subject}, category=#{category}, content=#{content},
+		 bounds=#{bounds}, modifydate=NOW() where num=#{num}
+	</update>
+	
+	<!-- delete -->
+	<delete id="deleteQnaArticle" parameterType="int">
+		delete from qna where num=#{num}
+	</delete>
+	
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

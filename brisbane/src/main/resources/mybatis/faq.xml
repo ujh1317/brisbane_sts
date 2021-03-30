@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="faq">
+   
+   <!-- 최대글번호 얻기  -->
+   <select id="faqnumMax" resultType="Integer">
+     select max(num) from faq
+   </select>
+   
+   <!-- 답글 끼워넣기 위치 확보  -->
+   <update id="reStep" parameterType="model.faq.FaqDto">
+     update faq set re_step=re_step+1
+     where ref=#{ref} and re_step>#{re_step}
+   </update>
+   
+   <!-- 글쓰기,답글쓰기 -->
+   <insert id="insertfaqBoard" parameterType="model.faq.FaqDto">
+      insert into faq(name,subject,pass,regdate,ref,re_step,re_level,content,email,answer,question,ip)
+      values(#{name},#{subject},#{pass},NOW(),#{ref},#{re_step},#{re_level},#{content},#{email},#{answer},#{question},#{ip});
+   </insert>
+   
+   <!-- 글갯수 -->
+   <select id="faqselectCount" resultType="int">
+     select count(*) from faq;
+   </select>
+   
+   <!-- 리스트 -->
+   <select id="faqselectList" parameterType="java.util.HashMap" resultType="model.faq.FaqDto">
+    select * from faq 
+    order by ref desc, re_step asc
+    limit #{start},#{cnt};
+   </select>
+   
+   <!-- 조회수 증가 -->
+   <update id="faqcount" parameterType="int">
+    update faq set count=count+1
+    where num= #{num};
+   </update>
+   
+   <!-- 글내용 보기, 글수정 -->
+   <select id="getfaqBoard" parameterType="int" resultType="model.faq.FaqDto">
+   select * from faq
+   where num= #{num};
+   </select>
+   
+   <!-- DB글수정 -->
+   <update id="faqupdatePro" parameterType="model.faq.FaqDto">
+   update faq set name=#{name},subject=#{subject},content=#{content}
+   where num=#{num} AND pass=#{pass}
+   </update>
+   
+   <!-- 글삭제 -->
+   <delete id="faqdeletePro" parameterType="int">
+   delete from faq
+   where num=#{num}
+   </delete>
+</mapper>
